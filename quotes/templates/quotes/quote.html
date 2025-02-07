@@ -1,0 +1,13 @@
+<!--quotes/templates/quotes/home.html-->
+{% extends 'quotes/base.html'%}
+    {% block content %}
+        <h1 style="padding-left: 20px;">Alan Turning Quote of the Day</h1>
+        <br><br>
+        <div style="text-align: center;">
+            <h3>"{{selected_quote}}"</h3>
+        </div>
+        
+        <div style="text-align: center; margin-top: 35px;">
+            <img src="{{selected_image}}" alt="alan-turing randomly selected" width="300px">
+        </div>
+    {% endblock %}

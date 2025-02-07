@@ -1,0 +1,23 @@
+<!--quotes/templates/quotes/show_all.html-->
+{% extends 'quotes/base.html'%}
+    {% block content %}
+        <h1>All Quotes by Alan Turing</h1>
+            <br><br>
+            <div class="text-paragraph" style="text-align: center;">
+                <ul style="list-style-type: none;">
+                    {% for quote in quotes %}
+                        <li>{{ quote }}</li> <br>
+                    {% endfor %}
+                </ul>
+            </div>
+            <br><br>
+        <h1>All Images of Alan Turing</h1>
+            <div style="text-align: center;">
+                <ul style="list-style-type: none;">
+                    {% for image in images %}
+                        <li><img src="{{image}}" alt="portrait of alan-turing" width="300px"></li> <br>
+                    {% endfor %}
+                </ul>
+            </div>
+
+    {% endblock %}
