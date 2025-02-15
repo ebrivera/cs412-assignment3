@@ -1,0 +1,103 @@
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+    <h2>Place an Order!</h2> <br>
+    
+    <div class="text-paragraph">
+        <form action="{% url 'submit' %}" method="POST">
+            {% csrf_token %}
+            <h3>
+                Menu
+            </h3>
+            <br>
+            <div>
+                <h4>
+                    Select Your Items
+                </h4>
+                <br>
+                <div style="margin-left: 25px;">
+                    <div>
+                        <input type="checkbox" id="Tacos" name="Tacos" value="3">
+                        <label for="Tacos">2 Tacos - <b>$3</b></label><br>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Burrito" name="Burrito" value="6">
+                        <label for="Burrito">Burrito - <b>$6</b></label><br>
+                        <div style="margin-left: 20px;">
+                            <div>
+                                <input type="checkbox" id="Cheese" name="Cheese" value="1">
+                                <label for="Cheese">Add Cheese <b>$1</b></label><br>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="Guac" name="Guac" value="1">
+                                <label for="Guac">Add Guac - <b>$1</b></label><br>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="extra-meat" name="extra-meat" value="2">
+                                <label for="extra-meat">Extra meat - <b>$2</b></label><br>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Enchiladas" name="Enchiladas" value="5">
+                        <label for="Enchiladas">Enchiladas - <b>$5</b></label><br>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Quesadilla" name="Quesadilla" value="3">
+                        <label for="Quesadilla">Quesadilla - <b>$3</b></label><br>
+                    </div>
+                </div>
+            </div><br><br>
+            <div>
+                <h4>
+                    Today's Special
+                </h4>
+                <br>
+                <div style="margin-left: 25px;">
+                    <div>
+                        <input type="checkbox" id="special" name="special" value="2">
+                        <label for="special">{{ special }} - <b>$2</b></label><br>
+                    </div>
+                </div>
+            </div> <br><br>
+            <div>
+                <h4>
+                    Special Instructions
+                </h4>
+                <br>
+                <div style="margin-left: 25px;">
+                    <div>
+                        <label for="special-instructions">Please list any special instructions</label><br><br>
+                        <textarea id="special-instructions" name="special-instructions" rows="2" cols="65"></textarea>
+                    </div>
+                </div>
+            </div><br><br>
+            <div>
+                <h4>
+                    Customer Information
+                </h4>
+                <br>
+                <div style="margin-left: 25px;">
+                    <div style="margin-bottom: 5px;">
+                        <label for="name">Name:</label>
+                        <input id="name" name="name" style="margin-left: 5px;">
+                    </div><br>
+                    <div style="margin-bottom: 5px;">
+                        <label for="phone">Phone Number:</label>
+                        <input id="phone" name="phone" style="margin-left: 5px;">
+                    </div><br>
+                    <div style="margin-bottom: 5px;">
+                        <label for="email">Email:</label>
+                        <input id="email" name="email" style="margin-left: 5px;">
+                    </div><br>
+                    
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <input type="submit">
+            </div>
+        </form>
+        
+    </div>
+{% endblock %}

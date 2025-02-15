@@ -19,7 +19,7 @@ QUOTES = [
 
 def home(request):
     '''
-    Define a view to handle the 'home' request.
+    Define a view to handle the 'main_page' request.
     '''
 
     response_text = f'''
@@ -76,3 +76,9 @@ def show_all(request):
     }
 
     return render(request, template, context)
+
+
+def readytime(currentTime):
+    print(currentTime)
+    
+readytime(time.ctime())

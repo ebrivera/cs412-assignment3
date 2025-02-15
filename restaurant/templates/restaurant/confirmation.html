@@ -1,0 +1,99 @@
+<!-- restaurant/templates/restaurant/confirmation.html -->
+{% extends 'restaurant/base.html' %}
+
+{% block content %}
+<div>
+<h1>Confirmation</h1>
+    <br>
+
+    <div class="text-paragraph">
+        <h2>
+            Hi, {{ name }}. Thank you for your order
+        </h2>
+        
+        <p>
+            <b>
+                Your order should be ready at {{ readytime }}
+            </b>
+        </p>
+    </div>
+    <br>
+
+    <div>
+        <table style="width: 100%;">
+            <tr>
+                <th style="width: 50%; text-align: left;">
+                    <div class="text-paragraph">
+                        <h3>
+                            Order Details:
+                        </h3>
+                        <div style="margin-left: 10px;">
+                            <ul style="list-style-type: none;">
+                                {% for yum in food %}
+                                    <li><b>
+                                        {{ yum.0 }}
+                                    </b></li><br>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <br>
+                        
+                        {% if instructions %}
+                        <div>
+                            <h3>
+                                Special Instructions:
+                            </h3>    
+                            <p>
+                                {{ instructions }}
+                            </p>
+                        </div>
+                        {% endif %}
+                        <br>
+                        
+                        <h3>
+                            Total: ${{ cost }}
+                        </h3>
+                    </div>
+                </th>
+                <th style="width: 50%; text-align: left;">
+                    <div class="text-paragraph">
+                        <h3>
+                            Customer Details:
+                        </h3>
+                        <br><br>
+                        <div>
+                            <h4>
+                                Name:
+                            </h4>
+                            <div style="margin-left: 10px;">
+                                <p>{{ name }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>
+                                Phone Number:
+                            </h4>
+                            <div style="margin-left: 10px;">
+                                <p>{{ phone }}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4>
+                                Email:
+                            </h4>
+                            <div style="margin-left: 10px;">
+                                <p>{{ email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </div>
+    
+    
+
+    
+
+</div>
+{% endblock %}

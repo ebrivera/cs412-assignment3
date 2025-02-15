@@ -1,0 +1,29 @@
+<!-- restaurant/templates/restaurant/base.html -->
+{% load static %}
+<html>
+    <head>
+        <title>The Rusten House!</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'main_page' %}">Main</a></li>
+            <li><a href="{% url 'order_page' %}">Order</a></li>
+        </ul>
+    </nav>
+    <div style="text-align: center;">
+        <h1>The Rusten House: Mexican Food!</h1> <br>
+    </div>
+    {% block content %}
+    {% endblock %}
+    
+    <!-- <hr>
+    The current time is {{current_time}}. -->
+    <footer>
+        The current time is {{current_time}}
+    </footer>
+
+    </body>
+</html>
