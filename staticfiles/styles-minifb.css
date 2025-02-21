@@ -1,0 +1,76 @@
+/*
+    File: static/styles-minifb.css
+    Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
+    Description: This is the styles for the minifb projecet that
+    we are building out over the course of the next
+    couple weeks.
+
+*/
+
+body {
+    margin: 30px;
+    background: #d1dedd;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ul, li {
+    padding: 0px;
+    list-style-type: none;
+}
+
+h1, h2, h3 {
+    color: #767f7e;
+}
+
+p {
+    color: #828b82;
+}
+
+header {
+    max-width: 1200px;
+    margin: 40px auto;
+    border-bottom: 1px solid #bbc7c7;
+}
+
+.profiles-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.profile-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    background-color: #C7C7A6;
+    margin: 10px;
+    padding: 20px;
+    align-items: center;
+
+    border: 10px solid #605C4E;
+    border-radius: 8px;
+
+}
+
+.profile-image img {
+    width: 100%;
+    max-height: 300px;
+    width: auto;
+    border-radius: 8px;
+    border: 6px solid #605C4E;
+}
+
+.singular-profile-img img {
+    width: 100%;
+    max-width: 275px;
+    border-radius: 8px;
+    border: 6px solid #605C4E;
+}
+
+.profile-info h2, p {
+    color: #363020;
+}
+
+
+nav li {
+    display: inline;
+}
