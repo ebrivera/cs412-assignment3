@@ -1,0 +1,30 @@
+<!-- mini_fb/templates/mini_fb/show_all_profiles.html -->
+
+
+{% extends 'mini_fb/base.html' %}
+<!-- scriptlet code to display the value of the variable `profiles` 
+{{ profiles }}
+-->
+{% block content %}
+<h1>Showing all Profiles</h1>
+<div class="profiles-container">
+    {% for profile in profiles %}
+    <div class="profile-row">
+        <div class="profile-info" style="text-align: left;">
+            <a href="{% url 'profile' profile.pk %}">
+                <h2>{{profile.first_name}} {{profile.last_name}}</h2>
+            </a>
+            <p>City: {{profile.city}}</p>
+            <p>Email: {{profile.email}}</p>
+        </div>
+        {% if profile.profile_image_url %}
+        <div class="profile-image" style="text-align: right;">
+            <a href="{% url 'profile' profile.pk %}">
+                <img src="{{profile.profile_image_url}}" alt="Profile photo of {{profile.first_name}}">
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

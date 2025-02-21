@@ -1,0 +1,18 @@
+<!-- mini_fb/templates/mini_fb/profile.html -->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<main class="profile-container" style="text-align: center;">
+    {% if profile.profile_image_url %}
+    <div class="singular-profile-img">
+        <img src="{{profile.profile_image_url}}" alt="Profile photo of {{profile.first_name}}" style="width: px;">
+    </div>
+    {% endif %}
+    
+    <div class="profile-info">
+        <h2>{{profile.first_name}} {{profile.last_name}}</h2>
+        <p>Hometown: {{profile.city}}</p>
+        <p>Email: {{profile.email}}</p>
+    </div>
+</main>
+{% endblock %}

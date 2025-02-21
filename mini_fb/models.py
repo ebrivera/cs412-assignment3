@@ -1,3 +1,4 @@
+# mini_fb/models.py
 from django.db import models
 
 # Create your models here.
@@ -10,9 +11,7 @@ class Profile(models.Model):
     city = models.TextField(blank=True)
     email = models.EmailField(blank=True)
     profile_image_url = models.URLField(blank=True)
-    
-    
 
     def __str__(self):
         """return a string representation of the model instance"""
-        return f'{self.title}'
+        return f'{self.first_name}'
