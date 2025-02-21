@@ -45,12 +45,10 @@ def submit(request: HttpRequest):
 
     template_name = "restaurant/confirmation.html"
 
-
     if request.POST:
-
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        email = request.POST.get("email")
+        name = request.POST["name"]
+        phone = request.POST["phone"]
+        email = request.POST["email"]
         
         food = [
             ["Tacos", request.POST.get("Tacos")],
@@ -89,7 +87,10 @@ def submit(request: HttpRequest):
         }
 
 
-    return render(request, template_name, context=context)
+        return render(request, template_name, context=context)
+    
+    return render(request, "restaurant/form.html")
+
 
 
 
