@@ -1,5 +1,8 @@
 """
-URL configuration for cs412 project.
+
+File: ./cs412/urls.py
+    Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
+    Description: URL configuration for cs412 project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/

@@ -1,4 +1,9 @@
-# mini_fb/models.py
+# File: ./mini_fb/models.py
+# Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
+# Description: this File creates a profile class for the table
+# each instance of a profile has a first name, last name, city,
+# email, and profile image url, which are all optional
+
 from django.db import models
 
 # Create your models here.

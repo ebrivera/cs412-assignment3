@@ -1,16 +1,25 @@
-<!-- mini_fb/templates/mini_fb/base.html -->
+<!-- 
+    File: ./mini_fb/templates/mini_fb/base.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
+    Description: This is the base template, so that there
+    is a cohesive header body, style in all of the pages
+    this will allow us to use the block content instead of
+    needing to remake every file 
+-->
+
 
 {% load static %}
 <html>
     <head>
         <title>Mini FB</title>
-        <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
+        <link rel="stylesheet" href="{% static 'styles-minifb.css' %}">
     </head>
     <body>
         <header>
             <h1>Mini FB</h1>
             <nav>
                 <ul>
+                    <!--navigation will be implemented in later assignment-->
                     <li><a href="{% url 'show_all_profiles' %}">Show All</a></li>
                     <!-- <li><a href="{% url 'show_all_profiles' %}">Random</a></li> -->
                 </ul>
