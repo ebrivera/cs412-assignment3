@@ -5,6 +5,7 @@
 # email, and profile image url, which are all optional
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Profile(models.Model):
@@ -20,3 +21,26 @@ class Profile(models.Model):
     def __str__(self):
         """return a string representation of the model instance"""
         return f'{self.first_name}'
+    
+
+    def get_absolute_url(self):
+        '''Return the URL to display one instance of this model.'''
+        return reverse('profile', kwargs={'pk':self.pk})
+    
+    def get_status_messages(self):
+        """Return a queryset of messages to this profile"""
+        messages = StatusMessage.objects.filter(profile=self)
+        return messages
+
+
+class StatusMessage(models.Model):
+    """Encapsulate the idea of a status message w/ timestamp, message content and profile relationship."""
+
+    # define the data attributes of the StatusMessage object
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
+    message = models.TextField(blank=False)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """return a string representation of the status message"""
+        return f'{self.message}'

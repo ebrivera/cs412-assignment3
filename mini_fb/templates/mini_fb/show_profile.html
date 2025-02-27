@@ -20,5 +20,18 @@
         <p>Hometown: {{profile.city}}</p>
         <p>Email: {{profile.email}}</p>
     </div>
+    <!--display messages to this person with timestamps-->
+    <hr>
 </main>
+
+<h2>Message</h2>
+<h3>
+    <a href="{% url 'create_status' profile.pk %}">Send a message</a>
+</h3>
+
+{% for message in profile.get_status_messages %}
+    <div>
+        <p><strong>{{ message.timestamp }}: </strong>{{ message.message }}</p>
+    </div>
+{% endfor %}
 {% endblock %}
