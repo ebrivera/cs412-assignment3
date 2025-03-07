@@ -1,0 +1,22 @@
+<!-- 
+    File: ./mini_fb/templates/mini_fb/update_profile_form.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 3/7/25
+    Description:display html form to update a profile obj
+-->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<h1>Update this Profile</h1>
+    <form action="{% url 'update_profile' profile.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }} 
+        </table>
+
+        <input type="submit" name="submit" value="Update">
+    </form>
+    <form action="{% url 'profile' profile.pk %}" method="GET">
+        <input type="submit" value="Cancel">
+    </form>
+{% endblock %}

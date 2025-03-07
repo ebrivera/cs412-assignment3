@@ -35,6 +35,8 @@
                 <img src="{{profile.image_file.url}}" alt="Profile photo of {{profile.first_name}}">
             </a>
         </div>
+        {% else %}
+        <h3>no image</h3>
         {% endif %}
     </div>
     {% endfor %}

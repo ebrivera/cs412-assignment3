@@ -1,0 +1,21 @@
+<!-- 
+    File: ./mini_fb/templates/mini_fb/delete_status_message_form.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 3/7/25
+    Description:delete status message
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h3>Are you sure you want to delete this status message?</h3>
+<p>
+    {{ message }}
+</p>
+
+<!--form is to submit the delete request-->
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="delete">
+</form>
+
+{% endblock %}

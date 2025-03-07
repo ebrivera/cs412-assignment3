@@ -5,9 +5,9 @@
 # DetailView). This allows us to render objects with context
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
-from .models import Profile
-from .forms import CreateProfileForm, CreateStatusMessageForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .models import Profile, StatusMessage
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 
 
@@ -38,6 +38,16 @@ class CreateProfileView(CreateView):
 
     form_class = CreateProfileForm
     template_name = "mini_fb/create_profile_form.html"
+
+    def form_valid(self, form):
+        '''
+        Handle the form submission to create a new Profile object.
+        '''
+        print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
+
+		# delegate work to the superclass version of this method
+        return super().form_valid(form)
+
 
 
 class CreateStatusMessageView(CreateView):
@@ -88,6 +98,41 @@ class CreateStatusMessageView(CreateView):
 
         context['profile'] = profile
         return context
+
+class UpdateProfileView(UpdateView):
+    '''A view to update a Profile and save it to the database.'''
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = "mini_fb/update_profile_form.html"
+    
+    def form_valid(self, form):
+        '''
+        Handle the form submission to create a new Profile object.
+        '''
+        print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
+
+        return super().form_valid(form)
+    
+class DeleteStatusMessageView(DeleteView):
+    '''A view to delete a status message and remove it from the database.'''
+
+    template_name = "mini_fb/delete_status_message_form.html"
+    model = StatusMessage
+    context_object_name = 'message'
+    
+    def get_success_url(self):
+        '''Return a the URL to which we should be directed after the delete.'''
+
+        # get the pk for this comment
+        pk = self.kwargs.get('pk')
+        message = StatusMessage.objects.get(pk=pk)
+        
+        # find the article to which this Comment is related by FK
+        profile = message.profile
+        
+        # reverse to show the article page
+        return reverse('profile', kwargs={'pk':profile.pk})
+
 
 
 

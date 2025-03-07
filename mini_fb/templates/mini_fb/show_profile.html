@@ -21,6 +21,10 @@
         <h2>{{profile.first_name}} {{profile.last_name}}</h2>
         <p>Hometown: {{profile.city}}</p>
         <p>Email: {{profile.email}}</p>
+        <!-- update this profile -->
+        <h4>
+            <a href="{% url 'update_profile' profile.pk %}">Update this Profile</a>
+	    </h4>
     </div>
     <!--display messages to this person with timestamps-->
     <hr>
