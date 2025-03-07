@@ -20,7 +20,7 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
         '''associate this form with the Profile model.'''
         model = Profile
-        fields = ['city', 'email']  # which fields from model should we use
+        fields = ['city', 'email', 'email', 'profile_image']  # which fields from model should we use
 
     
 class CreateStatusMessageForm(forms.ModelForm):
