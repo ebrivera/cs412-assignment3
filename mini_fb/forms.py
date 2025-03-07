@@ -12,7 +12,7 @@ class CreateProfileForm(forms.ModelForm):
             'last_name', 
             'city',
             'email', 
-            'profile_image_url',
+            'image_file',
         ]
 
     

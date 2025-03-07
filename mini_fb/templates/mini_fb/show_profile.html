@@ -9,10 +9,12 @@
 
 {% block content %}
 <main class="profile-container" style="text-align: center;">
-    {% if profile.profile_image_url %}
+    {% if profile.image_file %}
     <div class="singular-profile-img">
-        <img src="{{profile.profile_image_url}}" alt="Profile photo of {{profile.first_name}}" style="width: px;">
+        <img src="{{profile.image_file.url}}" alt="Profile photo of {{profile.first_name}}" style="width: px;">
     </div>
+    {% else %}
+    <h3>No Image</h3>
     {% endif %}
     
     <div class="profile-info">

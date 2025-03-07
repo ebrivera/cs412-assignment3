@@ -29,10 +29,10 @@
         </div>
         <!-- this is the piture with a link to their individual page which is only activated if the
         individual has a image url in their instance -->
-        {% if profile.profile_image_url %}
+        {% if profile.image_file %}
         <div class="profile-image" style="text-align: right;">
             <a href="{% url 'profile' profile.pk %}">
-                <img src="{{profile.profile_image_url}}" alt="Profile photo of {{profile.first_name}}">
+                <img src="{{profile.image_file.url}}" alt="Profile photo of {{profile.first_name}}">
             </a>
         </div>
         {% endif %}
