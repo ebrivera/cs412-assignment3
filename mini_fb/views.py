@@ -6,7 +6,7 @@
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Profile, StatusMessage
+from .models import Profile, StatusMessage, Image, StatusImage
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 
@@ -59,8 +59,7 @@ class CreateStatusMessageView(CreateView):
     def get_success_url(self):
         """Provide a url to redirect to after creating a successful message"""
 
-        # create and return url
-        # return reverse('show_all_profiles')
+
         # retrive pk from url
         pk = self.kwargs['pk']
         # call reverse  to generate the URL for this profile
@@ -81,6 +80,21 @@ class CreateStatusMessageView(CreateView):
 
         # attach profile to message
         form.instance.profile = profile
+
+        # save the status message to database
+        sm = form.save()
+        # read the file from the form:
+        files = self.request.FILES.getlist('files')
+
+        for file in files:
+            # make image 
+            img = Image(image_file=file, profile=profile, caption=f"status imaige for msg {profile}'s profile")
+            img.save()
+            # make status image
+            status_image = StatusImage(status_message=sm, image=img)
+            status_image.save()
+
+
 
         # delegate work to superclass method form_valid
         return super().form_valid(form)

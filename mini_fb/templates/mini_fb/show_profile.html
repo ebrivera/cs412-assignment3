@@ -9,9 +9,9 @@
 
 {% block content %}
 <main class="profile-container" style="text-align: center;">
-    {% if profile.image_file %}
+    {% if profile.profile_image %}
     <div class="singular-profile-img">
-        <img src="{{profile.image_file.url}}" alt="Profile photo of {{profile.first_name}}" style="width: px;">
+        <img src="{{profile.profile_image.url}}" alt="Profile photo of {{profile.first_name}}" style="width: px;">
     </div>
     {% else %}
     <h3>No Image</h3>
@@ -38,6 +38,14 @@
 {% for message in profile.get_status_messages %}
     <div>
         <p><strong>{{ message.timestamp }}: </strong>{{ message.message }}</p>
+
+        {% if message.get_images %}
+            {% for img in message.get_images %}
+            <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}'>
+            {% endfor %}
+        {% endif %}
+        <br>
+        <a href="{% url 'delete_status_message' message.pk %}">Delete</a> 
     </div>
 {% endfor %}
 {% endblock %}

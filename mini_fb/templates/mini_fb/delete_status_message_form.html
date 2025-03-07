@@ -15,7 +15,12 @@
 <!--form is to submit the delete request-->
 <form method="POST">
     {% csrf_token %}
-    <input type="submit" value="delete">
+    <input type="submit" value="Delete">
+</form>
+
+<form action="{% url 'profile' message.profile.pk %}" method='GET' >
+    {% csrf_token %}
+    <input type='submit' value="Cancel">
 </form>
 
 {% endblock %}

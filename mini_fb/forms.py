@@ -12,7 +12,7 @@ class CreateProfileForm(forms.ModelForm):
             'last_name', 
             'city',
             'email', 
-            'image_file',
+            'profile_image',
         ]
 class UpdateProfileForm(forms.ModelForm):
     '''A form to update a quote to the database.'''
