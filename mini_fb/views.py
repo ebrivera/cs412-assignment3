@@ -150,7 +150,7 @@ class UpdateStatusMessageView(UpdateView):
         context = super().get_context_data()
 
         pk = self.kwargs['pk']
-        
+
         status_message = StatusMessage.objects.get(pk=pk)
         context['status_message'] = status_message
         context['profile'] = status_message.profile
@@ -172,7 +172,7 @@ class UpdateStatusMessageView(UpdateView):
 class DeleteStatusMessageView(DeleteView):
     '''A view to delete a status message and remove it from the database.'''
 
-    template_name = "mini_fb/delete_status_message_form.html"
+    template_name = "mini_fb/delete_status_form.html.html"
     model = StatusMessage
     context_object_name = 'message'
     
