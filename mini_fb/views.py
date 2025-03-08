@@ -7,7 +7,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Profile, StatusMessage, Image, StatusImage
-from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm
 from django.urls import reverse
 
 
@@ -126,6 +126,48 @@ class UpdateProfileView(UpdateView):
         print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
 
         return super().form_valid(form)
+
+class UpdateStatusMessageView(UpdateView):
+    '''A view to update a StatusMessage and save it to the database.'''
+    model = StatusMessage
+    form_class = UpdateStatusMessageForm
+    template_name = "mini_fb/update_status_form.html"
+
+    def form_valid(self, form):
+        '''
+        Handle the form submission to create a new update to sm object.
+        '''
+        print(f'UpdateStatusMessageForm: form.cleaned_data={form.cleaned_data}')
+
+        return super().form_valid(form)
+    
+    def get_context_data(self):
+        """
+            Return the dictionary of context variables for use in the template.
+        """
+
+        # calling the superclass method
+        context = super().get_context_data()
+
+        pk = self.kwargs['pk']
+        
+        status_message = StatusMessage.objects.get(pk=pk)
+        context['status_message'] = status_message
+        context['profile'] = status_message.profile
+        return context
+    
+    def get_success_url(self):
+        '''Return a the URL to which we should be directed after the delete.'''
+
+        # get the pk for this comment
+        pk = self.kwargs.get('pk')
+        message = StatusMessage.objects.get(pk=pk)
+        
+        # find the article to which this Comment is related by FK
+        profile = message.profile
+        
+        # reverse to show the article page
+        return reverse('profile', kwargs={'pk':profile.pk})
     
 class DeleteStatusMessageView(DeleteView):
     '''A view to delete a status message and remove it from the database.'''

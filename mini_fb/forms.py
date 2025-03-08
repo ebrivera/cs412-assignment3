@@ -15,12 +15,20 @@ class CreateProfileForm(forms.ModelForm):
             'profile_image',
         ]
 class UpdateProfileForm(forms.ModelForm):
-    '''A form to update a quote to the database.'''
+    '''A form to update a profile to the database.'''
 
     class Meta:
         '''associate this form with the Profile model.'''
         model = Profile
         fields = ['city', 'email', 'email', 'profile_image']  # which fields from model should we use
+
+class UpdateStatusMessageForm(forms.ModelForm):
+    '''A form to update a status message to the database.'''
+
+    class Meta:
+        '''associate this form with the statusmessage model.'''
+        model = StatusMessage
+        fields = ['message']  # which fields from model should we use
 
     
 class CreateStatusMessageForm(forms.ModelForm):

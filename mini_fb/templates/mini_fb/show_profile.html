@@ -39,13 +39,11 @@
     <div>
         <p><strong>{{ message.timestamp }}: </strong>{{ message.message }}</p>
 
-        {% if message.get_images %}
-            {% for img in message.get_images %}
-            <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}'>
-            {% endfor %}
-        {% endif %}
+        {% for img in message.get_images %}
+        <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}'>
+        {% endfor %}
         <br>
-        <a href="{% url 'delete_status_message' message.pk %}">Delete</a> 
+        <a href="{% url 'update_status' message.pk %}">Update</a> <a href="{% url 'delete_status_message' message.pk %}">Delete</a> 
     </div>
 {% endfor %}
 {% endblock %}
