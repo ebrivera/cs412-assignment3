@@ -32,6 +32,25 @@ class Profile(models.Model):
         """Return a queryset of messages to this profile"""
         messages = StatusMessage.objects.filter(profile=self)
         return messages
+    
+    def get_friends(self):
+        """return a queryset that will return a list of friend's profiles"""
+        friend1 = Friend.objects.filter(profile1=self)
+        friend2 = Friend.objects.filter(profile2=self)
+
+        friends = []
+
+        # self cld be friend 1, so we need to return the profile2
+        for friend in friend1:
+            friends.append(friend.profile2)
+
+        # self cld be friend 2, so we need to return the profile1
+        for friend in friend2:
+            friends.append(friend.profile1)
+        
+        return friends
+        
+
 
 
 class StatusMessage(models.Model):
@@ -79,3 +98,15 @@ class StatusImage(models.Model):
     def __str__(self):
         """return a string representation of the status message"""
         return f"This image was attached to {self.status_message.profile}'s page"
+
+
+class Friend(models.Model):
+    """Encapsulate the idea of an edge connecting two nodes within the social network"""
+    
+    profile1 = models.ForeignKey("Profile", related_name="profile1", on_delete=models.CASCADE)
+    profile2 = models.ForeignKey("Profile", related_name="profile2", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """return a string representation of the model instance"""
+        return f'{self.profile1} & {self.profile2}'

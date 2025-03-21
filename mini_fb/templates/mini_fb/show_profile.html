@@ -30,6 +30,27 @@
     <hr>
 </main>
 
+<h2>Friends</h2>
+
+{% if profile.get_friends %}
+
+    <ul>
+        {% for friend in profile.get_friends %}
+            <li>
+                <div style="background-color: #8f8fd8; padding: 15px; text-align: center; width: 200px;" >
+                    <a href="{% url 'profile' friend.pk %}">
+                        <img src="{{friend.profile_image.url}}" alt="Profile photo of {{friend.first_name}}" style="width: 75px;">
+                        <h3>
+                            {{ friend.first_name }} {{ friend.last_name }}
+                        </h3>
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endif %}
+<hr>
 <h2>Message</h2>
 <h3>
     <a href="{% url 'create_status' profile.pk %}">Send a message</a>
