@@ -5,7 +5,8 @@
 # DetailView). This allows us to render objects with context
 
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from django.http import HttpResponseRedirect
 from .models import Profile, StatusMessage, Image, StatusImage
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm
 from django.urls import reverse
@@ -190,21 +191,14 @@ class DeleteStatusMessageView(DeleteView):
         return reverse('profile', kwargs={'pk':profile.pk})
 
 
+class AddFriendView(View):
+    """A view to create a Friend relationship between to profiles"""
 
+    def dispatch(self, request, *args, **kwargs):
+        pk = kwargs['pk']
+        other_pk = kwargs['other_pk']
 
-## this is from class, which i assume will be implemented to some extent later which is
-## why i am keeping it for now
-# class RandomProfileView(DetailView):
-#     """Display a single profile view at random"""
-
-#     model = Profile
-#     template_name = "mini_fb/profile.html"
-#     context_object_name = "profile" #singular
-
-#     # method
-#     def get_object(self):
-#         """return one instance of the Profile object at random"""
-
-#         all_profiles = Profile.objects.all()
-#         profile = random.choice(all_profiles)
-#         return profile
+        profile = Profile.objects.get(pk=pk)
+        other_profile = Profile.objects.get(pk=other_pk)
+        profile.add_friend(other_profile)
+        return HttpResponseRedirect(reverse('profile', kwargs={'pk':pk}))

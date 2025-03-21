@@ -49,6 +49,32 @@ class Profile(models.Model):
             friends.append(friend.profile1)
         
         return friends
+
+    def add_friend(self, other):
+        """Add a friend relationship between two nodes (Creating a friendship between this Profile and another)"""
+
+        # this is seeing if p1 has friend p2
+        potential1 = Friend.objects.filter(profile1=self, profile2=other)
+        # this is seeing if p2 has friend p1
+        potential2 = Friend.objects.filter(profile1=other, profile2=self)
+
+        # exists() returns true or false, and then we need to check if p1==p1
+        if potential1.exists() or potential2.exists() or self==other:
+            return
+        else: # else actually add them
+            Friend.objects.create(profile1=self, profile2=other)
+    
+    def get_friend_suggestions(self):
+        # get friends
+        current_friends = self.get_friends()
+
+        #getting all the pks for the friends
+        current_friend_ids = [f.pk for f in current_friends]
+        
+        # this is to exclude the current pk you'll see in the next ine
+        current_friend_ids.append(self.pk)
+        return Profile.objects.exclude(pk__in=current_friend_ids)
+        
         
 
 
