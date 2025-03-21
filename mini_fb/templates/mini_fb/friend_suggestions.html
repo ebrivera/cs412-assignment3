@@ -1,0 +1,28 @@
+<!-- 
+    File: ./mini_fb/templates/mini_fb/friend_suggestions.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 3/21/25
+    Description:This displays the friend suggestions for a single Profile, 
+    along with links to add friends.
+
+-->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<hr>
+<a href="{% url 'profile' profile.pk %}">Back to Profile</a>
+<h2>People {{ profile.first_name }} {{ profile.last_name }} might know</h2>
+<ul>
+    {% for suggested_friend in profile.get_friend_suggestions %}
+        <li>
+            
+            <div style="background-color: #8f8fd8; padding: 15px; text-align: center; width: 200px;" >
+                <img src="{{suggested_friend.profile_image.url}}" alt="Profile photo of {{suggested_friend.first_name}}" style="width: 75px;"><br>
+                {{ suggested_friend.first_name }} {{ suggested_friend.last_name }}<br>
+                <a href="{% url 'add_friend' profile.pk suggested_friend.pk %}">Add Friend</a>
+            </div>
+            <br><br>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

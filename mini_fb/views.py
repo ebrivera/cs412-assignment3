@@ -202,3 +202,9 @@ class AddFriendView(View):
         other_profile = Profile.objects.get(pk=other_pk)
         profile.add_friend(other_profile)
         return HttpResponseRedirect(reverse('profile', kwargs={'pk':pk}))
+    
+class ShowFriendSuggestionsView(DetailView):
+    """A view to show the suggested friends of a specific profile"""
+    model = Profile
+    template_name = "mini_fb/friend_suggestions.html"
+    context_object_name = "profile"

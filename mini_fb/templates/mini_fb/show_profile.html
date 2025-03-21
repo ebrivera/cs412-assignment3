@@ -25,8 +25,14 @@
         <h4>
             <a href="{% url 'update_profile' profile.pk %}">Update this Profile</a>
 	    </h4>
+        <!-- show suggestions -->
+        <h4>
+
+            <a href="{% url 'show_suggestions' profile.pk %}">Show Suggested Friends</a>
+	    </h4>
+
     </div>
-    <!--display messages to this person with timestamps-->
+
     <hr>
 </main>
 
