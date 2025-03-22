@@ -65,15 +65,30 @@ class Profile(models.Model):
             Friend.objects.create(profile1=self, profile2=other)
     
     def get_friend_suggestions(self):
+        """get the friend suggestions for the individual Profile"""
         # get friends
         current_friends = self.get_friends()
 
         #getting all the pks for the friends
-        current_friend_ids = [f.pk for f in current_friends]
+        current_friend_ids = [f.pk for f in current_friends] # list comprehension
         
         # this is to exclude the current pk you'll see in the next ine
         current_friend_ids.append(self.pk)
         return Profile.objects.exclude(pk__in=current_friend_ids)
+    
+    def get_news_feed(self):
+        """return the status messages for the individual profile and all of the friends"""
+
+        # get all of the friends
+        relevant = self.get_friends()
+
+        # get all of the pk's for the friends
+        relevant_ids = [r.pk for r in relevant] # list comprehension
+        # you need to add your own pk
+        relevant_ids.append(self.pk)
+        # print(f"Relevant IDs: {relevant_ids}")
+        # return the status messages given the profile pk's and reverse order time stamp
+        return StatusMessage.objects.filter(profile__in=relevant_ids).order_by('-timestamp')
         
         
 
