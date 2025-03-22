@@ -30,6 +30,9 @@
 
             <a href="{% url 'show_suggestions' profile.pk %}">Show Suggested Friends</a>
 	    </h4>
+        <h4>
+            <a href="{% url 'news_feed' profile.pk %}">View News Feed</a>
+        </h4>
 
     </div>
 
@@ -52,6 +55,7 @@
                     </a>
                 </div>
             </li>
+            <br><br>
         {% endfor %}
     </ul>
 
@@ -67,7 +71,7 @@
         <p><strong>{{ message.timestamp }}: </strong>{{ message.message }}</p>
 
         {% for img in message.get_images %}
-        <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}'>
+        <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' style="width: 150px;">
         {% endfor %}
         <br>
         <a href="{% url 'update_status' message.pk %}">Update</a> <a href="{% url 'delete_status_message' message.pk %}">Delete</a> 

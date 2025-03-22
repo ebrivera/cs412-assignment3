@@ -1,7 +1,8 @@
 # File: ./mini_fb/views.py
 # Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
 # Description:This is the django part that returns 
-# all views for all the instances of Profile(s) (ListView, and
+# all views for all the instances of Profile(s), status messages, friends, 
+# images status images (ListView, and
 # DetailView). This allows us to render objects with context
 
 from django.shortcuts import render
@@ -207,4 +208,10 @@ class ShowFriendSuggestionsView(DetailView):
     """A view to show the suggested friends of a specific profile"""
     model = Profile
     template_name = "mini_fb/friend_suggestions.html"
+    context_object_name = "profile"
+
+class ShowNewsFeedView(DetailView):
+    """A view to show the status messages in your newsfeed from your profile and your friends"""
+    model = Profile
+    template_name = "mini_fb/news_feed.html"
     context_object_name = "profile"

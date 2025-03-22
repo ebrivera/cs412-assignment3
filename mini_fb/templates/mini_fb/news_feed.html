@@ -1,0 +1,37 @@
+<!-- 
+    File: ./mini_fb/templates/mini_fb/news_feed.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 3/21/25
+    Description: Display a newsfeed of all of the status messages for one's
+    own personal status messages but also the status messages of all their friends
+    kind of like a timeline
+-->
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<a href="{% url 'profile' profile.pk %}">Back to Profile</a>
+<hr>
+<h2>Here is your newsfeed, {{ profile.first_name }}.</h2>
+<ul>
+    {% for news in profile.get_news_feed %}
+        <li>
+            <div style="background: lightblue; border: 3px solid darkblue; margin-bottom: 15px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <img src='{{news.profile.profile_image.url}}' alt='{{img.image_file.url}}' style="margin: 20px; width: 50px; height: 50px; border: 5px solid black; border-radius: 10px;">
+                    <div>
+                        <p><strong>{{ news.profile.first_name }} {{ news.profile.last_name }}:</strong> {{ news.timestamp }}</p>
+                        <p>{{ news.message }}</p>
+                    </div>
+                </div>
+        
+                {% for img in news.get_images %}
+                <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' style="width: 100px; margin-left: 200px; margin-bottom: 15px;">
+                {% endfor %}
+                <br>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+
