@@ -169,6 +169,15 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         """return the profile for a user that is logged in"""
         return Profile.objects.get(user=self.request.user)
+    
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to block from updating this profile.'''
+        profile = Profile.objects.get(user=self.request.user)
+
+        if profile.user != request.user:
+            return HttpResponseRedirect(reverse('profile', kwargs={'pk':profile.pk}))
+        
+        return super().dispatch(request, *args, **kwargs)
 
 
 class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
@@ -216,6 +225,19 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
         '''return the URL required for login'''
         return reverse('login') 
     
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to block others from deleting 
+        status message thats not theirs.'''
+        pk = self.kwargs.get('pk')
+        message = StatusMessage.objects.get(pk=pk)
+        profile = Profile.objects.get(user=self.request.user)
+
+        if message.profile.user != request.user:
+            return HttpResponseRedirect(reverse('profile', kwargs={'pk':profile.pk}))
+        
+        return super().dispatch(request, *args, **kwargs)
+        
+    
 class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     '''A view to delete a status message and remove it from the database.'''
 
@@ -239,6 +261,18 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     def get_login_url(self) -> str:
         '''return the URL required for login'''
         return reverse('login') 
+    
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to block others from deleting 
+        status message thats not theirs.'''
+        pk = self.kwargs.get('pk')
+        message = StatusMessage.objects.get(pk=pk)
+        profile = Profile.objects.get(user=self.request.user)
+
+        if message.profile.user != request.user:
+            return HttpResponseRedirect(reverse('profile', kwargs={'pk': profile.pk}))
+        
+        return super().dispatch(request, *args, **kwargs)
 
 
 class AddFriendView(View):
@@ -268,6 +302,9 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     def get_object(self):
         """return the profile for a user that is logged in"""
         return Profile.objects.get(user=self.request.user)
+        ## bc of this objects.get we never need dispatch
+    
+    
 
 class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     """A view to show the status messages in your newsfeed from your profile and your friends"""
@@ -282,6 +319,7 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     def get_object(self):
         """return the profile for a user that is logged in"""
         return Profile.objects.get(user=self.request.user)
+        ## bc of this objects.get we never need dispatch
 
 class UserRegistrationView(CreateView):
     """Process and show the creation of a user"""

@@ -22,18 +22,20 @@
         <p>Hometown: {{profile.city}}</p>
         <p>Email: {{profile.email}}</p>
         {% if request.user.is_authenticated %}   
-        <!-- update this profile -->
-        <h4>
-            <a href="{% url 'update_profile' %}">Update this Profile</a>
-	    </h4>
-        <!-- show suggestions -->
-        <h4>
+            {% if request.user == profile.user %}
+                <!-- update this profile -->
+                <h4>
+                    <a href="{% url 'update_profile' %}">Update this Profile</a>
+                </h4>
+                <!-- show suggestions -->
+                <h4>
 
-            <a href="{% url 'show_suggestions' %}">Show Suggested Friends</a>
-	    </h4>
-        <h4>
-            <a href="{% url 'news_feed' %}">View News Feed</a>
-        </h4>
+                    <a href="{% url 'show_suggestions' %}">Show Suggested Friends</a>
+                </h4>
+                <h4>
+                    <a href="{% url 'news_feed' %}">View News Feed</a>
+                </h4>
+            {% endif %}
         {% endif %}
     </div>
 
@@ -63,10 +65,12 @@
 {% endif %}
 <hr>
 <h2>Message</h2>
-{% if request.user.is_authenticated %}                    
-<h3>
-    <a href="{% url 'create_status' %}">Send a message</a>
-</h3>
+{% if request.user.is_authenticated %}    
+    {% if request.user == profile.user %}                
+        <h3>
+            <a href="{% url 'create_status' %}">Send a message</a>
+        </h3>
+    {% endif %}
 {% endif %}
 
 {% for message in profile.get_status_messages %}
@@ -77,8 +81,10 @@
         <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' style="width: 150px;">
         {% endfor %}
         <br>
-        {% if request.user.is_authenticated %}         
-        <a href="{% url 'update_status' message.pk %}">Update</a> <a href="{% url 'delete_status_message' message.pk %}">Delete</a> 
+        {% if request.user.is_authenticated %} 
+            {% if request.user == profile.user %}
+                <a href="{% url 'update_status' message.pk %}">Update</a> <a href="{% url 'delete_status_message' message.pk %}">Delete</a> 
+            {% endif %}
         {% endif %}
     </div>
 {% endfor %}
