@@ -1,0 +1,16 @@
+<!-- 
+    File: ./mini_fb/templates/mini_fb/logged_out.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 3/29/25
+    Description: Confirmatoin for logout page
+-->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<h1>Logout Confirmation</h1>
+<p>You have been logged out.</p>
+<p>Click <a href="{% url 'login' %}">here</a> to log in again.</p>
+<p>Click <a href="{% url 'show_all_profiles' %}">here</a> to go back to the main page.</p>
+
+{% endblock %}

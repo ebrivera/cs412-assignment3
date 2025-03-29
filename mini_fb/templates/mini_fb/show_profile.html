@@ -21,6 +21,7 @@
         <h2>{{profile.first_name}} {{profile.last_name}}</h2>
         <p>Hometown: {{profile.city}}</p>
         <p>Email: {{profile.email}}</p>
+        {% if request.user.is_authenticated %}   
         <!-- update this profile -->
         <h4>
             <a href="{% url 'update_profile' profile.pk %}">Update this Profile</a>
@@ -33,7 +34,7 @@
         <h4>
             <a href="{% url 'news_feed' profile.pk %}">View News Feed</a>
         </h4>
-
+        {% endif %}
     </div>
 
     <hr>
@@ -62,9 +63,11 @@
 {% endif %}
 <hr>
 <h2>Message</h2>
+{% if request.user.is_authenticated %}                    
 <h3>
     <a href="{% url 'create_status' profile.pk %}">Send a message</a>
 </h3>
+{% endif %}
 
 {% for message in profile.get_status_messages %}
     <div>
@@ -74,7 +77,9 @@
         <img src='{{img.image_file.url}}' alt='{{img.image_file.url}}' style="width: 150px;">
         {% endfor %}
         <br>
+        {% if request.user.is_authenticated %}         
         <a href="{% url 'update_status' message.pk %}">Update</a> <a href="{% url 'delete_status_message' message.pk %}">Delete</a> 
+        {% endif %}
     </div>
 {% endfor %}
 {% endblock %}

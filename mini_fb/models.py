@@ -6,6 +6,7 @@
 
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User # for auth
 
 # Create your models here.
 class Profile(models.Model):
@@ -18,6 +19,8 @@ class Profile(models.Model):
     email = models.EmailField(blank=True)
     # profile_image_url = models.URLField(blank=True)
     profile_image = models.ImageField(blank=True) # an actual image
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+
 
     def __str__(self):
         """return a string representation of the model instance"""
