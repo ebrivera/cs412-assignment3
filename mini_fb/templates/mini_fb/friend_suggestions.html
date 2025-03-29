@@ -16,9 +16,11 @@
         <li>
             
             <div style="background-color: #8f8fd8; padding: 15px; text-align: center; width: 200px;" >
+                {% if suggested_friend.profile_image %}
                 <img src="{{suggested_friend.profile_image.url}}" alt="Profile photo of {{suggested_friend.first_name}}" style="width: 75px;"><br>
+                {% endif %}
                 {{ suggested_friend.first_name }} {{ suggested_friend.last_name }}<br>
-                <a href="{% url 'add_friend' profile.pk suggested_friend.pk %}">Add Friend</a>
+                <a href="{% url 'add_friend' suggested_friend.pk %}">Add Friend</a>
             </div>
             <br><br>
         </li>

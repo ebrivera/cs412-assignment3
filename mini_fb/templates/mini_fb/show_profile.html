@@ -24,15 +24,15 @@
         {% if request.user.is_authenticated %}   
         <!-- update this profile -->
         <h4>
-            <a href="{% url 'update_profile' profile.pk %}">Update this Profile</a>
+            <a href="{% url 'update_profile' %}">Update this Profile</a>
 	    </h4>
         <!-- show suggestions -->
         <h4>
 
-            <a href="{% url 'show_suggestions' profile.pk %}">Show Suggested Friends</a>
+            <a href="{% url 'show_suggestions' %}">Show Suggested Friends</a>
 	    </h4>
         <h4>
-            <a href="{% url 'news_feed' profile.pk %}">View News Feed</a>
+            <a href="{% url 'news_feed' %}">View News Feed</a>
         </h4>
         {% endif %}
     </div>
@@ -65,7 +65,7 @@
 <h2>Message</h2>
 {% if request.user.is_authenticated %}                    
 <h3>
-    <a href="{% url 'create_status' profile.pk %}">Send a message</a>
+    <a href="{% url 'create_status' %}">Send a message</a>
 </h3>
 {% endif %}
 
