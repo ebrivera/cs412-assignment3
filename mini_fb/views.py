@@ -13,6 +13,7 @@ from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin ## NEW
 
 
@@ -62,8 +63,21 @@ class CreateProfileView(CreateView):
         '''
         print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
 
+        user_form = UserCreationForm(self.request.POST)
+        user = user_form.save()
+        login(self.request, user)
+        form.instance.user = user
 		# delegate work to the superclass version of this method
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        """provides context variables to the template."""
+        context = super().get_context_data()
+
+        context['user_form'] = UserCreationForm
+
+        return context
+
 
 
 
@@ -76,10 +90,10 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         """Provide a url to redirect to after creating a successful message"""
 
-        # retrive pk from url
-        pk = self.kwargs['pk']
+        # retrive pk from profile
+        profile = Profile.objects.get(user=self.request.user)
         # call reverse  to generate the URL for this profile
-        return reverse('profile', kwargs={'pk':pk})
+        return reverse('profile', kwargs={'pk':profile.pk})
 
     
     def form_valid(self, form):
@@ -90,9 +104,8 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         object before saving it to the database.
         '''
 
-        # retrive pk from url
-        pk = self.kwargs['pk']
-        profile = Profile.objects.get(pk=pk)
+        # retrive pk from profile
+        profile = Profile.objects.get(user=self.request.user)
 
         # attach profile to message
         form.instance.profile = profile
@@ -120,8 +133,8 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         # calling the superclass method
         context = super().get_context_data()
 
-        pk = self.kwargs['pk']
-        profile = Profile.objects.get(pk=pk)
+
+        profile = Profile.objects.get(user=self.request.user)
 
         context['profile'] = profile
         return context
