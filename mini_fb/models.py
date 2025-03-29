@@ -19,7 +19,8 @@ class Profile(models.Model):
     email = models.EmailField(blank=True)
     # profile_image_url = models.URLField(blank=True)
     profile_image = models.ImageField(blank=True) # an actual image
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    # found this on django docs but helped me solve problem related to users <-> profile
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile') 
 
 
     def __str__(self):
