@@ -1,0 +1,43 @@
+<!-- 
+    File: ./voter_analytics/templates/voter_analytics/graphs.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 4/4/25
+    Description: This file extends the base and then shows all of the graphs
+    in a way where it will have all voters until an individual asks
+    for filters to be applied
+-->
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+
+<br><br><br><br>
+<div class="row">
+    <h3>Create Custom Graph</h1>
+    <form action="{% url 'graphs' %}">
+        {% include "voter_analytics/search.html" %} 
+    </form>   
+</div>
+<!-- # show the pie chart here: -->
+<div class="container">
+    <div class="row">
+        <!-- safe: render the HTML rather than display the HTML as text -->
+        {{graph_div_splits|safe}} 
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div class="row">
+        <!-- safe: render the HTML rather than display the HTML as text -->
+        {{affiliation_pie|safe}} 
+    </div>
+</div>
+<br><br>
+<div class="container">
+    <div class="row">
+        <!-- safe: render the HTML rather than display the HTML as text -->
+        {{graph_attendance|safe}} 
+    </div>
+</div>
+<br><br>
+
+    
+{% endblock %}

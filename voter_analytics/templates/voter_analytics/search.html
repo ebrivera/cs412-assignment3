@@ -1,0 +1,74 @@
+<!-- 
+    File: ./voter_analytics/templates/voter_analytics/search.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 4/4/25
+    Description: This file is merely the search table
+    there is no form attached to this so that i could use it in other
+    files, but it uses context objects from the views.py based on
+    the data in the models.
+-->
+<br>
+
+    <table>
+        <tr>
+            <th>Party Affiliation</th> <!--Party affiliation (a drop-down list)-->
+            <td>
+                <select name="party_affiliation">
+                    <option value="">All Parties</option>
+                    {% for party in party_affiliations %}
+                        <option value="{{party}}">{{party}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Min Year</th> <!--Minimum date of birth (a drop-down list by calendar year)-->
+            <td>
+                <select name="min_years">
+                    <option value="">All Dates</option>
+                    {% for year in min_years %}
+                        <option value="{{year}}">{{year}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Max Year</th> <!--Maximum date of birth (a drop-down list by calendar year)-->
+            <td>
+                <select name="max_years">
+                    <option value="">All Dates</option>
+                    {% for year in max_years %}
+                        <option value="{{year}}">{{year}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Voter Score</th> <!--Voter score (a drop-down list)-->
+            <td>
+                <select name="voter_score">
+                    <option value="">All Scores</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Voted in: </th> <!--Whether they voted in specific elections (check boxes)-->
+            <td>
+                <input type="checkbox" name="v20state" value="True">2020 State<br>
+                <input type="checkbox" name="v21town" value="True">2021 Town<br>
+                <input type="checkbox" name="v21primary" value="True">2021 Primary<br>
+                <input type="checkbox" name="v22general" value="True">2022 General<br>
+                <input type="checkbox" name="v23town" value="True">2023 Town<br>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit"></td>
+            <td></td>
+        </tr>
+
+    </table>    
