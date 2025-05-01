@@ -1,0 +1,59 @@
+<!-- 
+    File: ./project/templates/project/show_coffee_enthusiast.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
+    Description:This shows an individual page that people
+    will have either clicked on from one of the hyper links
+    or view the url primary key index
+-->
+{% extends 'project/base.html' %}
+
+{% block content %}
+<main style="text-align: center;">
+    {% if coffee_enthusiast.profile_image %}
+    <div>
+        <img src="{{coffee_enthusiast.profile_image.url}}" alt="Profile photo of {{coffee_enthusiast.user.username}}" style="max-width: 200px; max-height: 200px;">
+    </div>
+    {% else %}
+    <h3>No Image</h3>
+    {% endif %}
+    
+    <div >
+        <h2>{{coffee_enthusiast.user.username}}</h2>
+        <h3>Favorite Coffee Bags:</h3>
+        {% for coffee_bag in favorites %}
+            <div>
+                <a href="{% url 'coffee_bag' coffee_bag.pk %}">
+                    <h4>{{ coffee_bag.company }}</h4>
+                </a>
+            </div>
+        {% endfor %}
+        {% if request.user.is_authenticated %}   
+            {% if request.user == coffee_enthusiast.user %}
+                <!-- update this profile -->
+                <h4>
+                    <a href="{% url 'update_coffee_enthusiast' coffee_enthusiast.pk%}">Update this Profile</a>
+                </h4>
+                <!-- show suggestions -->
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <hr>
+    <h2>
+       Reviews 
+    </h2>
+    <div>
+        {% for review in reviews %}
+            <div style="border: solid black 2px; background-color: #f5f5f5; padding: 15px; margin: 10px;">
+                <h4>{{ review.coffee_bag.company }}: {{ review.coffee_bag.origin }}</h4>
+                <p>{{ review.review_text }}</p>
+                <p>Rating: {{ review.rating }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+
+</main>
+
+
+{% endblock %}

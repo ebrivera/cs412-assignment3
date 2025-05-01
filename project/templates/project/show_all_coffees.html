@@ -1,0 +1,81 @@
+<!-- 
+    File: ./project/templates/project/show_all_coffees.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
+    Description: This is the show all profiles file where
+    people will be able to see every single profile within the
+    DB. it breaks it up so every person has their own row with
+    links to their individual pages
+-->
+
+
+{% extends 'project/base.html' %}
+{% block content %}
+<h1>Coffee Bags</h1>
+<div>
+<h2>Filter?</h2>
+    <form method="GET" action="{% url 'show_all_coffees' %}">
+        <table>
+            <tr>
+                <th>Roast</th>
+                <td>
+                    <select name="roast">
+                        <option value="">All</option>
+                        {% for roast in all_roasts %}
+                            <option value="{{ roast }}">{{ roast }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Origin</th>
+                <td>
+                    <select name="origin">
+                        <option value="">All</option>
+                        {% for origin in all_origins %}
+                            <option value="{{ origin }}">{{ origin }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>
+                    <select name="tags">
+                        <option value="">All</option>
+                        {% for tag in all_tags %}
+                            <option value="{{ tag }}">{{ tag }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Filter">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    {% for coffee in coffee_bags %}
+    <div style="width: 30%; background-color: blanchedalmond; padding: 15px; margin-bottom: 30px; border: solid black 2px;">
+        
+        <div style="text-align: left;">
+            <a href="{% url 'coffee_bag' coffee.pk %}">
+                <h2>{{coffee.company}}: {{coffee.origin}}</h2>
+            </a>
+            <p><i>{{coffee.notes}}</i></p>
+        </div>
+        {% if coffee.image %}
+        <div style="text-align: center;">
+            <a href="{% url 'coffee_bag' coffee.pk %}">
+                <img src="{{coffee.image.url}}" alt="Profile photo of {{coffee.company}} ({{coffee.origin}})" style="width: 100%; max-width: 200px;">
+            </a>
+        </div>
+        {% else %}
+        <h3>no image</h3>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

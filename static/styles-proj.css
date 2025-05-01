@@ -1,0 +1,24 @@
+/*
+    File: static/styles-minifb.css
+    Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
+    Description: This is the styles for the minifb projecet that
+    we are building out over the course of the next
+    couple weeks.
+
+*/
+
+body {
+    margin: 30px;
+    background: #d1dedd;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ul, li {
+    padding: 0px;
+    list-style-type: none;
+}
+
+
+nav li {
+    display: inline;
+}

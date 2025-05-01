@@ -1,0 +1,38 @@
+<!-- 
+    File: ./project/templates/project/show_all_profiles.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 4/30/25
+    Description: This is the show all profiles file where
+    people will be able to see every coffee
+-->
+
+
+{% extends 'project/base.html' %}
+{% block content %}
+<h1 style="text-align: center;">Showing all Enthusiasts</h1>
+<!-- container for entire profiles -->
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    {% for enthusiast in coffee_enthusiasts %}
+    <!-- container for individual enthusiast -->
+    <div style="width: 48%; background-color: aliceblue; border: 1px solid #363636; margin-bottom: 20px; padding: 15px; box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- text including name and link to individual page -->
+            <div style="text-align: left;">
+                <a href="{% url 'coffee_enthusiast' enthusiast.pk %}">
+                    <h2>{{enthusiast.user.username}}</h2>
+                </a>
+            </div>
+            <!-- profile picture with link to individual page -->
+            <div style="text-align: right;">
+                {% if enthusiast.profile_image %}
+                <a href="{% url 'coffee_enthusiast' enthusiast.pk %}">
+                    <img src="{{enthusiast.profile_image.url}}" alt="Profile photo of {{enthusiast.user.username}}" style="max-width: 100px; max-height: 100px; object-fit: cover;">
+                </a>
+                {% else %}
+                <h3>no image</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

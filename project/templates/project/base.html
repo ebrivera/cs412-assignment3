@@ -1,0 +1,48 @@
+<!-- 
+    File: ./project/templates/project/base.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 4/24/25
+    Description: This is the base template, so that there
+    is a cohesive header body, style in all of the pages
+    this will allow us to use the block content instead of
+    needing to remake every file 
+-->
+
+
+{% load static %}
+<html>
+    <head>
+        <title>Artisanal Coffee</title>
+        <link rel="stylesheet" href="{% static 'styles-proj.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>Final Project</h1>
+            <div style="text-align: center; display: flex; justify-content: space-between;">
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'show_all_coffees' %}">show all coffee bags</a></li>
+                        <li><a href="{% url 'show_all_coffee_enthusiasts' %}">show all profiles</a></li>
+                        {% if request.user.is_authenticated %}
+                            {% if request.user.has_coffee_profile %}
+                                <li><a href="{% url 'coffee_enthusiast' request.user.coffee_profile.pk %}">View Profile</a></li>
+                            {% else %}
+                                <li><a href="{% url 'create_coffee_enthusiast' %}">Create Profile</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="{% url 'create_coffee_enthusiast' %}">Create Profile</a></li>
+                        {% endif %}
+                        <li><a href="{% url 'create_coffee_bag' %}">create coffee bag</a></li>
+
+                    </ul>
+                </nav>
+                <div>{% if request.user.is_authenticated %}<p style="display: inline;">Logged in as: {{ request.user.username }}</p> <form method="post" action="{% url 'logout' %}" style="display: inline;">{% csrf_token %}<input type="submit" value="Log out"></form>{% else %}<p style="display: inline;">Not logged in.</p> <a href="{% url 'login' %}">Log in</a>{% endif %}</div>
+            </div>
+            <hr>
+        </header>
+    
+    {% block content %}
+    {% endblock %}    
+  
+    </body>
+</html>
+

@@ -1,0 +1,29 @@
+<!-- 
+    File: ./project/templates/project/create_coffee_enthusiast_form.html
+    Author: Ernesto Rivera (ebrivera@bu.edu), 2/26/25
+    Description:display html form to create a new profile obj
+-->
+{% extends 'project/base.html' %}
+
+{% block content %}
+
+<h1>Create your Enthusiast Page</h1>
+    <form action="{% url 'create_coffee_enthusiast' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+        {% if show_user_form %}
+            <h2>User Account Creation</h2>
+            <table>
+                {{ user_form.as_table}}
+
+            </table>
+        {% endif%}
+        <h2>Enthusiast Page Creation</h2>
+        <table>
+            {{ form.as_table }} 
+        </table>
+
+        <input type="submit" name="submit" value="Submit">
+    </form>
+{% endblock %}

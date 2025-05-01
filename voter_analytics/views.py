@@ -185,7 +185,6 @@ class GraphListView(ListView):
         # start with entire queryset
         voters = super().get_queryset()
 
-        print('GET:', self.request.GET)
 
         if 'party_affiliation' in self.request.GET:
             party_affiliation = self.request.GET['party_affiliation']
