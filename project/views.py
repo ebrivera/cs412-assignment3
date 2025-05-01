@@ -94,6 +94,7 @@ class CreateCoffeeBagView(LoginRequiredMixin, CreateView):
         return reverse('coffee_bag', kwargs={'pk': self.object.pk})
     
     def get_login_url(self) -> str:
+        """ return url for login"""
         return reverse('login')
     
     def dispatch(self, request, *args, **kwargs):
@@ -136,6 +137,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         """Redirect to the coffee bag detail page"""
         return reverse('coffee_bag', kwargs={'pk': self.kwargs['pk']})
     def get_login_url(self) -> str:
+        """return the URL required for login"""
         return reverse('login')
     
     def dispatch(self, request, *args, **kwargs):
