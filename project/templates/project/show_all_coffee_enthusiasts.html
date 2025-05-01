@@ -10,6 +10,7 @@
 {% block content %}
 <h1 style="text-align: center;">Showing all Enthusiasts</h1>
 <!-- container for entire profiles -->
+
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
     {% for enthusiast in coffee_enthusiasts %}
     <!-- container for individual enthusiast -->
@@ -35,4 +36,34 @@
     </div>
     {% endfor %}
 </div>
+{% if request.user.is_authenticated %}
+<h2>People with similar favorites?</h2>
+<div>
+    {% for similar in similar_enthusiasts %}
+    <!-- container for simlar enthusiast -->
+    <div style="width: 48%; background-color: aliceblue; border: 1px solid #363636; margin-bottom: 20px; padding: 15px; box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- text including name and link to individual page -->
+            <div style="text-align: left;">
+                <a href="{% url 'coffee_enthusiast' similar.pk %}">
+                    <h2>{{similar.user.username}}</h2>
+                </a>
+            </div>
+            <!-- profile picture with link to individual page -->
+            <div style="text-align: right;">
+                {% if similar.profile_image %}
+                <a href="{% url 'coffee_enthusiast' similar.pk %}">
+                    <img src="{{similar.profile_image.url}}" alt="Profile photo of {{similar.user.username}}" style="max-width: 100px; max-height: 100px; object-fit: cover;">
+                </a>
+                {% else %}
+                <h3>no image</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<h2 style="text-align: center;">Please log in to view similar enthusiasts.</h2>
+{% endif %}
 {% endblock %}

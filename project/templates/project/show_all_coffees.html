@@ -13,8 +13,8 @@
 <h1>Coffee Bags</h1>
 <div>
 <h2>Filter?</h2>
-    <form method="GET" action="{% url 'show_all_coffees' %}">
-        <table>
+    <form method="GET" action="{% url 'filter_coffees' %}">
+        <table style="background: rgba(243, 152, 16, 0.459);">
             <tr>
                 <th>Roast</th>
                 <td>
@@ -40,10 +40,10 @@
             <tr>
                 <th>Tags</th>
                 <td>
-                    <select name="tags">
+                    <select name="tag">
                         <option value="">All</option>
                         {% for tag in all_tags %}
-                            <option value="{{ tag }}">{{ tag }}</option>
+                            <option value="{{ tag.id }}">{{ tag }}</option>
                         {% endfor %}
                     </select>
                 </td>
@@ -56,6 +56,7 @@
         </table>
     </form>
 </div>
+
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
     {% for coffee in coffee_bags %}
     <div style="width: 30%; background-color: blanchedalmond; padding: 15px; margin-bottom: 30px; border: solid black 2px;">
@@ -78,4 +79,5 @@
     </div>
     {% endfor %}
 </div>
+
 {% endblock %}

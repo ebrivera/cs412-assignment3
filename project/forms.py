@@ -50,4 +50,4 @@ class UpdateCoffeeEnthusiastForm(forms.ModelForm):
     class Meta:
         '''associate this form with the enthusiast model.'''
         model = CoffeeEnthusiast
-        fields = ['profile_image', 'favorite_coffee_bags']  # which fields from model should we use
+        fields = ['profile_image', 'favorite_coffee_bags'] 

@@ -7,8 +7,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse 
 
-# Create your models here.
-
 
 class CoffeeBag(models.Model):
     """Encapsulate the idea of a CoffeeBag with unique information information."""

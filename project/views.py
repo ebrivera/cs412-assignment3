@@ -40,7 +40,6 @@ class ShowAllCoffees(ListView):
         # get all the coffee bags
         coffee_bags = CoffeeBag.objects.all()
         # add the coffee bags to the context
-        context['coffee_bags'] = coffee_bags
         context['all_tags'] = Tag.objects.all()
         context['all_roasts'] = CoffeeBag.objects.values_list('roast', flat=True).distinct()
         context['all_origins'] = CoffeeBag.objects.values_list('origin', flat=True).distinct()
@@ -68,10 +67,10 @@ class ShowAllCoffees(ListView):
                 coffee_bags = coffee_bags.filter(origin=origin)
         if 'tag' in self.request.GET:
             ## tag type
-            tag = self.request.GET['tags']
+            tag = self.request.GET['tag']
             if tag and tag != '0' and tag != '':
-                # filter the coffee bags by tag
-                coffee_bags = coffee_bags.filter(tags__id=tag)
+                coffee_bags = coffee_bags.filter(tags__id=int(tag))
+
         return coffee_bags
 
 class ShowCoffeBagView(DetailView):
@@ -81,7 +80,7 @@ class ShowCoffeBagView(DetailView):
     template_name = "project/show_coffee_bag.html"
     context_object_name = "coffee_bag"
 
-class CreateCoffeeBagView(CreateView):
+class CreateCoffeeBagView(LoginRequiredMixin, CreateView):
     """
     A view to handle creation of new CoffeeBag
     1: Display the html form to user (GET)
@@ -93,8 +92,17 @@ class CreateCoffeeBagView(CreateView):
     def get_success_url(self):
         """Redirect to the coffee bag detail page"""
         return reverse('coffee_bag', kwargs={'pk': self.object.pk})
+    
+    def get_login_url(self) -> str:
+        return reverse('login')
+    
+    def dispatch(self, request, *args, **kwargs):
+        '''check if user is authenticated'''
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('login'))
+        return super().dispatch(request, *args, **kwargs)
 
-class CreateReviewView(CreateView):
+class CreateReviewView(LoginRequiredMixin, CreateView):
     """
     A view to handle creation of new Review
     1: Display the html form to user (GET)
@@ -127,6 +135,15 @@ class CreateReviewView(CreateView):
     def get_success_url(self):
         """Redirect to the coffee bag detail page"""
         return reverse('coffee_bag', kwargs={'pk': self.kwargs['pk']})
+    def get_login_url(self) -> str:
+        return reverse('login')
+    
+    def dispatch(self, request, *args, **kwargs):
+        '''check if user is authenticated'''
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('login'))
+        return super().dispatch(request, *args, **kwargs)
+    
     
     def get_context_data(self, **kwargs):
         """
@@ -233,6 +250,14 @@ class ShowAllCoffeeEnthusiasts(ListView):
         coffee_enthusiasts = CoffeeEnthusiast.objects.all()
         # add the coffee enthusiasts to the context
         context['coffee_enthusiasts'] = coffee_enthusiasts
+
+        # get ppl with same favorites
+        if self.request.user.is_authenticated:
+            coffee_enthusiast = CoffeeEnthusiast.objects.get(user=self.request.user)
+            # get all the coffee enthusiasts with the same favorite coffee bags
+            similar_enthusiasts = CoffeeEnthusiast.objects.filter(favorite_coffee_bags__in=coffee_enthusiast.favorite_coffee_bags.all()).exclude(user=self.request.user).distinct()
+            # add the similar enthusiasts to the context
+            context['similar_enthusiasts'] = similar_enthusiasts
 
         return context
     

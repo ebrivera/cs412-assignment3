@@ -1,15 +1,13 @@
 /*
-    File: static/styles-minifb.css
+    File: static/fina.css
     Author: Ernesto Rivera (ebrivera@bu.edu), 2/21/25
-    Description: This is the styles for the minifb projecet that
-    we are building out over the course of the next
-    couple weeks.
+    Description: This is the styles for final project
 
 */
 
 body {
     margin: 30px;
-    background: blue;
+    background: rgb(231, 215, 192);
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -19,7 +17,11 @@ ul, li {
 }
 
 h1, h2, h3 {
-    color: #767f7e;
+    color: #412200;
+}
+
+hr {
+    border: 1px solid #767f7e;
 }
 
 p {

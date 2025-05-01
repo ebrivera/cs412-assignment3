@@ -8,7 +8,7 @@
 {% block content %}
 
 <h1>Leave a review on {{coffee_bag.company}}</h1>
-    <div style="background-color: #f5f5f5; border: 2px solid black; margin-left: 20%; margin-right: 20%; padding-left: 5%; padding-right: 5%;">
+    <div style="background-color: #f1e2bc; border: 2px solid black; margin: 0 auto; width: 60%; padding: 5%; text-align: center;">
         <h2 style="display: flex; justify-content: space-between;">
             <div style="text-align: left;">
                 <div>Notes:</div>
@@ -20,28 +20,32 @@
                 <div>{{coffee_bag.origin}}</div>
                 <div>{{coffee_bag.roast}}</div>
             </div>
-
         </h2>
     </div>
     <br>
-    <form  method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" style="text-align: center;">
         {% csrf_token %}
-        <table>
-            {{ form.review_text.label_tag }} {{ form.review_text }}
-            <br><br>
-            {{ form.brew_method.label_tag }} {{ form.brew_method }}
-            <br><br>
-            {{ form.rating.label_tag }} {{ form.rating }}
-            <br><br>
-        </table>
-        <br>
-        <h3>Optional: Add Tags</h3>
-        <div style="display: flex; justify-content: center;">
-            <div style="column-count: 4; column-gap: 40px;">
-                {{form.tags}}
+        <div style="display: flex; justify-content: space-between; padding-right: 7%; width: 80%; margin: 0 auto;">
+            <div style="width: 45%;">
+                <table>
+                    {{ form.review_text.label_tag }} <br> {{ form.review_text }}
+                    <br>
+                    {{ form.brew_method.label_tag }}<br> {{ form.brew_method }}
+                    <br>
+                    {{ form.rating.label_tag }} <br>{{ form.rating }}
+                    <br>
+                </table>
+            </div>
+            <div style="width: 45%;">
+                <h3>Optional: Add Tags</h3>
+                <div style="column-count: 4; column-gap: 40px;">
+                    {{form.tags}}
+                </div>
             </div>
         </div>
         <br>
-        <input type="submit" name="submit" value="Submit">
+        <div style="text-align: center;">
+            <input type="submit" name="submit" value="Submit">
+        </div>
     </form>
 {% endblock %}

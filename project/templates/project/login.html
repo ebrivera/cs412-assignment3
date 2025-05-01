@@ -1,5 +1,5 @@
 <!-- 
-    File: ./project/templates/miniproject_fb/login.html
+    File: ./project/templates/project/login.html
     Author: Ernesto Rivera (ebrivera@bu.edu), 4/29/25
     Description: login file for logging in as a user    
 -->
@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<h1>Login to MiniFB</h1>
+<h1>Login to CoffeeYelp</h1>
 <form method="post" action="{% url 'login' %}" >
     {% csrf_token %}
     {{form}}
