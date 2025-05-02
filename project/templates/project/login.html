@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<h1>Login to CoffeeYelp</h1>
+<h1>Login to BrewReview</h1>
 <form method="post" action="{% url 'login' %}" >
     {% csrf_token %}
     {{form}}
@@ -15,5 +15,5 @@
     <input type="hidden" name="next" value="{% url 'show_all_coffees' %}">
 </form>
 <hr>
-Don't have an account? <a href="{% url 'register' %}">Register here</a>.
+Don't have an account? <a href="{% url 'create_coffee_enthusiast' %}">Register here</a>.
 {% endblock %}
